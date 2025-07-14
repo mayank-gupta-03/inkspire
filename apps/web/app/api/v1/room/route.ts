@@ -1,4 +1,4 @@
-import { prisma } from "@repo/db/prismaClient";
+import { prisma } from "@repo/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {

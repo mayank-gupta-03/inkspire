@@ -1,5 +1,5 @@
 import { WebSocketServer, WebSocket } from "ws";
-import { prisma } from "@repo/db/prismaClient";
+import { prisma } from "@repo/db";
 import "dotenv/config";
 
 interface Connection {
@@ -7,7 +7,7 @@ interface Connection {
   room: string | null;
 }
 
-const wss = new WebSocketServer({ port: Number(process.env.WS_PORT) || 4000 });
+const wss = new WebSocketServer({ port: Number(process.env.PORT) });
 const connections = new Map<WebSocket, Connection>();
 
 wss.on("connection", (ws) => {
@@ -39,7 +39,7 @@ wss.on("connection", (ws) => {
           }
 
           connection.room = roomId;
-          console.log(`Socket joined room ${roomId}`);
+          console.log(`Socket joined room ${room.slug}`);
         } catch (err) {
           console.error("Internal server error: ", err);
           ws.close(1011, "Internal server error.");
